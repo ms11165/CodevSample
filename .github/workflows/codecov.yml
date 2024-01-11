@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - checkout
       - run:
           name: install flutter sdk
           command: git clone -b stable https://github.com/flutter/flutter.git ~/flutter
