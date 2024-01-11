@@ -1,27 +1,31 @@
-name: Check
+name: Flutter CI
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-  workflow_dispatch:
+    branches:
+      - main
 
 jobs:
-  check:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - run:
-        name: install flutter sdk
-        command: git clone -b stable https://github.com/flutter/flutter.git ~/flutter
-      - run:
-        name: flutter analyze
-        command: ~/flutter/bin/flutter analyze --write=analyzer-output.txt
-      - run:
-        name: flutter test
-        command: ~/flutter/bin/flutter test --coverage --coverage-path=~/coverage/lcov.info
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        channel: 'stable'
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Run tests and generate coverage
+      run: |
+        flutter test --coverage
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
