@@ -12,6 +12,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - checkout
+      - run:
+          name: install flutter sdk
+          command: git clone -b stable https://github.com/flutter/flutter.git ~/flutter
+      - run:
+          name: flutter analyze
+          command: ~/flutter/bin/flutter analyze --write=analyzer-output.txt
+      - run:
+          name: flutter test
+          command: ~/flutter/bin/flutter test --coverage --coverage-path=~/coverage/lcov.info
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
