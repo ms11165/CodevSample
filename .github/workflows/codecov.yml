@@ -29,10 +29,3 @@ jobs:
       uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-
-  comment:
-    layout: "reach, diff, flags, files"
-    behavior: default
-    require_changes: no
-    require_base: yes
-    require_head: yes
