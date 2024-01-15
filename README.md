@@ -1,3 +1,5 @@
+[![codecov](https://codecov.io/gh/ms11165/CodevSample/graph/badge.svg?token=BCGPNRDKDJ)](https://codecov.io/gh/ms11165/CodevSample)
+
 # flutter_application_codev
 
 A new Flutter project.
